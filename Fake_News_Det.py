@@ -30,10 +30,15 @@ def predict():
     if request.method == 'POST':
         message = request.form['message']
         pred = fake_news_det(message)
-        print(pred)
-        return render_template('index.html', prediction=pred)
+        if pred[0] == 1:
+            prediction = "FAKE"
+        else:
+            prediction = "REAL"
+        print("Prediction:", prediction)  
+        return render_template('index.html', prediction=prediction)
     else:
         return render_template('index.html', prediction="Something went wrong")
+
 
 if __name__ == '__main__':
     app.run(debug=True)
